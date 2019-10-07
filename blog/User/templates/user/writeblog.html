@@ -1,0 +1,61 @@
+{% extends "user/base.html" %}
+{% block js_css %}
+    <link href="/static/adm/css/main.css" rel="stylesheet">
+{% endblock %}
+{% block content %}
+    <form action="" method="post" enctype="multipart/form-data" style="text-align: center">
+{#    提交图片enctype="multipart/form-data"#}
+    {% csrf_token %}
+        <table align="center">
+        <tr>
+            <th>文章名</th>
+            <td><input type="text" name="title" ></td>
+
+            <th>日期</th>
+            <td><input type="text" name="date" ></td>
+
+        </tr>
+        <tr>
+            <th>文章内容</th>
+            <td>
+            <textarea name="content"></textarea>
+            </td>
+
+            <th>文章描述</th>
+
+            <td><textarea name="description"></textarea></td>
+
+        </tr>
+        <tr>
+
+            <th>推荐</th>
+            <td><input type="text" name="recommend"></td>
+
+            <th>点击率</th>
+             <td><input type="text" name="click"></td>
+
+        </tr>
+        <tr>
+
+            <th>作者</th>
+            <td><input type="text" name="author" value="{{ user.username }}" disabled></td>
+
+            <th>类别</th>
+             <td><input type="text" name="type"></td>
+
+        </tr>
+        <tr>
+            <th colspan="2" align="center">图片</th>
+            <td  colspan="2" style="text-align: center">
+            <input type="file" name="picture">
+            </td>
+        </tr>
+         <tr>
+            <td colspan="4" style="text-align: center">
+            <input type="submit" value="新增文章" style="height:30px;width: 100px;background-color: #00FF00">
+            </td>
+        </tr>
+
+    </table>
+    </form>
+{% endblock %}

@@ -1,0 +1,48 @@
+{% extends 'adm/base.html' %}
+{% block js_css %}
+    <link href="/static/adm/css/main.css" rel="stylesheet">
+{% endblock %}
+{% block content%}
+    <div class="container">
+  <div class="con_content">
+    <div class="about_box">
+      <h2 class="nh1"><span>您现在的位置是：<a href="#" target="_blank">网站首页</a>>><a href="#" target="_blank">个人日记</a></span><b>个人日记</b></h2>
+      <div class="dtxw box">
+
+          {% for one in page_obj %} }
+              <li>
+          <div class="dttext f_l">
+            <ul>
+              <h2><a href="/Author/articledetails/{{ one.id }}">{{ one.title }}</a></h2>
+              <p>{{ one.description | safe}}</p>
+              <span>{{ one.date }}</span>
+            </ul>
+          </div>
+          <div class="xwpic f_r"><a href="#"><img src="/static/{{ one.picture }}"></a></div>
+        </li>
+          {% endfor %}
+
+
+      </div>
+
+        <div class="pagelist">
+
+            <a href="/Author/type/{{ type }}/1">首页</a>  <!--使用超链接跳转第一页-->
+            {% if page_obj.has_previous %}   <!--判断是否有上一页，有的话执行下面的代码-->
+            <a href="/Author/type/{{ type }}/{{ page_obj.previous_page_number }}">上一页</a>   <!--使用超链接跳转到上一页-->
+            {% endif %}
+            {% for page in page_range %}   <!--遍历页数，page_range是在视图中获取的，已经限制好范围-->
+                <a href="/Author/type/{{ type }}/{{ page }}">{{ page }}</a>    <!--把遍历到的页数通过超链接使其可以跳转-->
+            {% endfor %}
+            {% if page_obj.has_next %}  <!--判断是否有下一页，有的话执行下面的代码-->
+
+            <a href="/Author/type/{{ type }}/{{ page_obj.next_page_number }}">下一页</a>
+            <!--使用超链接跳转到下一页-->
+            {% endif %}
+            <a href="/Author/type/{{ type }}/{{ paginator.num_pages }}">尾页</a>  <!--使用超链接跳转至尾页-->
+        </div>
+    </div>
+  </div>
+  <div class="blank"></div>
+  <!-- container代码 结束 -->
+{% endblock %}

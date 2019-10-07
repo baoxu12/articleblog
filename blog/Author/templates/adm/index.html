@@ -1,0 +1,39 @@
+{% extends "adm/base.html" %}
+{% block label %}
+    博客首页
+{% endblock %}
+
+{% block title %}
+    博客首页
+{% endblock %}
+
+
+{% block content %}
+ <table class="table table-bordered dataTable">
+        <thead>
+        <tr>
+            <th>博客标题</th>
+            <th>博客类型</th>
+            <th>博客作者</th>
+            <th>博客日期</th>
+        </tr>
+        </thead>
+        <tbody>
+            {% for one in page_obj %}
+        <tr>
+            <td><a href="/Author/articledetails/{{ one.id }}">{{ one.title }}</a></td>
+            <td>{{ one.type }}</td>
+            <td>{{ one.author }}</td>
+            <td>{{ one.date }}</td>
+        </tr>
+        {% endfor %}
+        </tbody>
+        <tfoot></tfoot>
+
+    </table>
+
+{% endblock %}
+
+
+
+

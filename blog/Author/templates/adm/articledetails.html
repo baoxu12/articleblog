@@ -1,0 +1,19 @@
+{% extends  'adm/base.html'%}
+{% block js_css %}
+    详情页面
+{% endblock %}
+{% block content %}
+
+        <div >
+          <h2>{{ article.title }}</h2>
+          <p ></p>
+        </div>
+        <div>
+        <ul>
+          <p> {{ article.content | safe}}</p>
+          <p><img src="/static/{{ article.picture }}"></p>
+        </ul>
+        </div>
+
+{% endblock %}
+

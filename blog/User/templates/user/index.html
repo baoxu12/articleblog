@@ -1,0 +1,83 @@
+{% extends 'user/base.html' %}
+{% block js_css %}
+    <link href="/static/adm/css/index.css" rel="stylesheet">
+{% endblock %}
+{% block content %}
+    <div class="jztop"></div>
+  <div class="container">
+      <div class="bloglist f_l">
+
+        {% for article in page_obj %}
+
+          <h3><a href="/User/articledetails/{{ article.id }}">{{ article.title }}</a></h3>
+          <figure><img src="/static/{{ article.picture }}" alt="{{ article.title }}"></figure>
+          <ul>
+            <p>{{ article.description |safe }}</p>
+            <a title="{{ article.title }}" href="/User/articledetails/{{ article.id }}" target="_blank" class="readmore">阅读全文&gt;&gt;</a>
+          </ul>
+          <p class="dateview"><span>{{ article.date }}</span><span>{{ article.author }}</span><span>个人博客：[<a href="/jstt/bj/">{{ article.type }}</a>]</span></p>
+        {% endfor %}
+
+          <hr >
+
+
+            <div class="pagelist" style="text-align: center">
+                <br>
+
+
+                <a href="/User/index/1">首页</a>  <!--使用超链接跳转第一页-->
+                {% if page_obj.has_previous %}   <!--判断是否有上一页，有的话执行下面的代码-->
+                <a href="/User/index/{{ page_obj.previous_page_number }}">上一页</a>   <!--使用超链接跳转到上一页-->
+                {% endif %}
+                {% for page in page_range %}   <!--遍历页数，page_range是在视图中获取的，已经限制好范围-->
+                    <a href="/User/index/{{ page }}">{{ page }}</a>    <!--把遍历到的页数通过超链接使其可以跳转-->
+                {% endfor %}
+                {% if page_obj.has_next %}  <!--判断是否有下一页，有的话执行下面的代码-->
+
+                <a href="/User/index/{{ page_obj.next_page_number }}">下一页</a>
+                <!--使用超链接跳转到下一页-->
+                {% endif %}
+                <a href="/User/index/{{ paginator.num_pages }}">尾页</a>  <!--使用超链接跳转至尾页-->
+            </div>
+        </div>
+
+    <div class="r_box f_r">
+      <div class="tit01">
+        <h3 class="tit">关注我</h3>
+        <div class="gzwm">
+          <ul>
+            <li><a class="email" href="#" target="_blank">我的电话</a></li>
+            <li><a class="qq" href="#mailto:admin@admin.com" target="_blank">我的邮箱</a></li>
+            <li><a class="tel" href="#" target="_blank">我的QQ</a></li>
+            <li><a class="prize" href="#">个人奖项</a></li>
+          </ul>
+        </div>
+      </div>
+      <!--tit01 end-->
+
+      <div class="tuwen">
+        <h3 class="tit">图文推荐</h3>
+        <ul>
+            {% for tuwen in recommend_article %}
+          <li><a href="/User/articledetails/{{ tuwen.id }}"><img src="/static/{{ tuwen.picture }}"><b>{{ tuwen.title }}</b></a>
+            <p><span class="tulanmu"><a href="/User/articledetails/{{ tuwen.id }}">{{ tuwen.type.first }}</a></span><span class="tutime">{{  tuwen.date }}</span></p>
+          </li>
+            {% endfor %}
+        </ul>
+      </div>
+      <div class="ph">
+        <h3 class="tit">点击排行</h3>
+        <ul class="rank">
+            {% for paihang in click_article %}
+          <li><a href="/User/articledetails/{{ paihang.id }}" title="{{ paihang.title }}" target="_blank">{{ paihang.title }}</a></li>
+            {% endfor %}
+
+        </ul>
+      </div>
+      <div class="ad"> <img src="/static/adm/images/03.jpg"> </div>
+    </div>
+  </div>
+  <!-- container代码 结束 -->
+  <div class="jzend"></div>
+{% endblock %}
+
